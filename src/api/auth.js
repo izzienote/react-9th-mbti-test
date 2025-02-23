@@ -12,15 +12,16 @@ export const login = async (userData) => {
   return response.data;
 };
 
-//가져온 유저 정보는 어디에 써야하는지? mbti 결과 저장에 쓰려나? 일단 보류하기
-// export const getUserProfile = async (accessToken) => {
-//   const response = await axios.get(`${API_URL}/user`, {
-//     headers: {
-//       Authorization: `Bearer ${accessToken}`
-//     }
-//   });
-//   return response.data;
-// };
+//프로필 닉네임 수정은 오케이 but 변경된 유저의 정보로 갈아끼우는 작업 필요
+//그래서 getUserProfile을 쓰는 듯
+export const getUserProfile = async (accessToken) => {
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  return response.data;
+};
 
 //인자를 토큰과 닉네임을 받고, 토큰과 변경되는 닉네임을 전달해서 프로필 업데이트 하기
 export const updateProfile = async ({ nickname, accessToken }) => {
