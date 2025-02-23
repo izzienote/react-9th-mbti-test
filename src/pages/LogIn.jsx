@@ -6,15 +6,15 @@ import { login as loginApi } from "../api/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuthStore((state) => state);
+  const { setUser, setToken } = useAuthStore((state) => state);
 
   const handleLogin = async (formData) => {
     try {
-      const response = await loginApi(formData);
-      const { accessToken } = response;
-      login(accessToken);
-      //왜 로컬스토리지에 전체 상태가 저장이 되는 걸까... 왜 이 코드를 입력해야만하지?
-      localStorage.setItem("accessToken", accessToken);
+      const { accessToken, userId, nickname, avatar } = await loginApi(
+        formData
+      );
+      setUser({ userId, nickname, avatar });
+      setToken(accessToken);
 
       alert("로그인에 성공했습니다!");
       navigate("/");

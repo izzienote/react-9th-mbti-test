@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
 
@@ -7,15 +6,12 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    //이상하다 왜 둘다 여기서 지워줘야만 하지?ㅠㅠㅠㅠㅠㅠㅠ
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
   };
 
   return (
-    <header className="flex justify-center items-center py-4">
+    <header className="fixed top-0 left-0 right-0 flex justify-center items-center py-2 bg-white shadow-md">
       <nav>
-        <ul className="flex space-x-6 ">
+        <ul className="flex space-x-6 items-center">
           <li>
             <Link to="/">홈</Link>
           </li>

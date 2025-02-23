@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CommonBtn from "./CommonBtn";
 
 const AuthForm = ({ mode, onSubmit }) => {
@@ -18,6 +18,10 @@ const AuthForm = ({ mode, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    //프로필 모드일때만, 입력 값 초기화
+    if (mode === "profile") {
+      setFormData({ nickname: "" });
+    }
   };
 
   return (

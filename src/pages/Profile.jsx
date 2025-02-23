@@ -1,18 +1,19 @@
-import React, { useContext } from "react";
 import AuthForm from "../components/AuthForm";
-import { getUserProfile } from "../api/auth";
+import { updateProfile } from "../api/auth";
 import useAuthStore from "../zustand/authStore";
 
 const Profile = () => {
-  const { user } = useAuthStore((state) => state);
+  const { accessToken } = useAuthStore((state) => state);
+  console.log(accessToken);
 
-  const handleUpdateProfile = async () => {
-    if (token) {
+  const handleUpdateProfile = async (formData) => {
+    if (accessToken) {
       try {
-        await getUserProfile(token);
-        alert("토큰으로 유저정보 가져오기");
+        //폼데이터와, accssToken 전달
+        await updateProfile({ ...formData, accessToken });
+        alert("프로필 정보 변경 성공");
       } catch (error) {
-        alert("토큰 실패");
+        alert("프로필 정보 변경 실패");
       }
     }
   };

@@ -30,14 +30,15 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Layout>
-        {/* 로그인 안해도 볼 수 있는 사이트 */}
         <Routes>
+          {/* 사용자가 임의로 페이지 들어가고자 할때 로그인 페이지로 이동 */}
+          <Route path="*" element={<Navigate to="/log-in" />} />
           <Route path="/" element={<Home />} />
-          <Route path="/log-in" element={<PublicRoute element={<LogIn />} />} />
           <Route
             path="/sign-up"
             element={<PublicRoute element={<SignUp />} />}
           />
+          <Route path="/log-in" element={<PublicRoute element={<LogIn />} />} />
           {/* 로그인 해야 볼 수 있는 사이트 */}
           <Route
             path="/profile"

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import TestForm from "../components/TestForm";
+import { useState } from "react";
 import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import { createTestResult } from "../api/testResults";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,8 @@ const TestPage = ({ user }) => {
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
     /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다. 이 데이터를 어떻게 API 를 이용해 처리 할 지 고민해주세요. */
-    setResult(mbtiResult);
-    await createTestResult(mbtiResult);
-    navigate("/test-result-page");
+    setResult(mbtiResult); //결과화면 나오는 로직(브라우저 에서만)
+    // await createTestResult(mbtiResult);
   };
 
   const handleNavigateToResults = () => {
@@ -22,7 +21,7 @@ const TestPage = ({ user }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center bg-white">
+    <div className="py-10 w-full flex flex-col items-center justify-center bg-white h-screen overflow-y-auto">
       <div className="bg-white rounded-lg p-8 max-w-lg w-full h-full overflow-y-auto">
         {!result ? (
           <>
