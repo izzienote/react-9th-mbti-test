@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
-import CommonBtn from "./CommonBtn";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import useAuthStore from "../zustand/authStore";
 
 const Header = () => {
-  const { isAuthenticated } = useContext(AuthContext);
-  console.log("header:", isAuthenticated);
+  const { user, logout } = useAuthStore((state) => state);
+
+  const handleLogout = () => {
+    logout();
+    //이상하다 왜 둘다 여기서 지워줘야만 하지?ㅠㅠㅠㅠㅠㅠㅠ
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+  };
+
   return (
     <header className="flex justify-center items-center py-4">
       <nav>
@@ -14,7 +20,7 @@ const Header = () => {
             <Link to="/">홈</Link>
           </li>
           {/* 로그인 상태일 경우, 버튼 안보이게 수정 필요 */}
-          {isAuthenticated ? (
+          {user ? (
             <>
               <li>
                 <Link to="/profile">프로필</Link>
@@ -29,11 +35,22 @@ const Header = () => {
           ) : null}
 
           <li>
-            <Link className="text-red-400" to="/log-in">
-              <button className="w-20 text-white py-3 bg-red-400 hover:bg-red-100 rounded-lg transition-colors">
-                로그인
-              </button>
-            </Link>
+            {user ? (
+              <Link className="text-red-400" to="/">
+                <button
+                  onClick={handleLogout}
+                  className="w-20 text-white py-3 bg-red-400 hover:bg-red-100 rounded-lg transition-colors"
+                >
+                  로그아웃
+                </button>
+              </Link>
+            ) : (
+              <Link className="text-red-400" to="/log-in">
+                <button className="w-20 text-white py-3 bg-red-400 hover:bg-red-100 rounded-lg transition-colors">
+                  로그인
+                </button>
+              </Link>
+            )}
           </li>
         </ul>
       </nav>

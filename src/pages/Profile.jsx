@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import AuthForm from "../components/AuthForm";
-import { AuthContext } from "../context/AuthContext";
 import { getUserProfile } from "../api/auth";
+import useAuthStore from "../zustand/authStore";
 
 const Profile = () => {
-  // const { token } = useContext(AuthContext);
-  // console.log("token=>", token);
+  const { user } = useAuthStore((state) => state);
 
   const handleUpdateProfile = async () => {
     if (token) {
       try {
         await getUserProfile(token);
-        alert("토큰 가져오기");
+        alert("토큰으로 유저정보 가져오기");
       } catch (error) {
         alert("토큰 실패");
       }

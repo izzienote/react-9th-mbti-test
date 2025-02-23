@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import {
   BrowserRouter,
   Navigate,
@@ -13,18 +12,18 @@ import Profile from "../pages/Profile";
 import TestPage from "../pages/TestPage";
 import TestResultPage from "../pages/TestResultPage";
 import Layout from "./Layout";
-import { AuthContext } from "../context/AuthContext";
+import useAuthStore from "../zustand/authStore";
 
 const Router = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const user = useAuthStore((state) => state.user);
 
   const PublicRoute = ({ element }) => {
-    return !isAuthenticated ? element : <Navigate to="/" />;
+    return !user ? element : <Navigate to="/" />;
     return element;
   };
 
   const PrivateRoute = ({ element }) => {
-    return isAuthenticated ? element : <Navigate to="/log-in" />;
+    return user ? element : <Navigate to="/log-in" />;
     return element;
   };
 

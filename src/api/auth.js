@@ -9,9 +9,6 @@ export const register = async (userData) => {
 
 export const login = async (userData) => {
   const response = await axios.post(`${API_URL}/login`, userData);
-  // accessToken을 localStorage에 저장
-  localStorage.setItem("accessToken", response.data.accessToken);
-  console.log(response.data);
   return response.data;
 };
 

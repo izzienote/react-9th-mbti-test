@@ -1,3 +1,5 @@
+import { questions } from "../data/questions";
+
 export const mbtiDescriptions = {
   ENFJ: "ENFJ: 이타주의자의 끝판왕! ENFJ는 사람을 돕는 데에 진심인 편이에요. 이들은 모든 사람에게 좋은 사람이 되고자 하며, 자기 자신보다 남을 더 우선시하는 슈퍼히어로 같은 존재예요. 친구들이 고민 상담을 할 때마다 차 한 잔 준비해놓고 기다리고 있을지도 몰라요. 그러나 가끔 너무 많은 걸 감당하려고 해서 자신을 잊어버리기도 해요. 그래서 가끔은 '나도 휴식이 필요해!'라고 외칠 필요가 있어요.",
 
@@ -30,7 +32,7 @@ export const mbtiDescriptions = {
   INTP: "INTP: 세상의 진리를 탐구하는 철학자! INTP는 항상 새로운 아이디어와 이론을 탐구하는 사람들입니다. 이들은 '왜?'라는 질문을 끊임없이 던지며, 세상의 모든 것을 논리적으로 이해하려고 해요. 그러나 가끔은 너무 생각에 빠져서 현실과 동떨어질 때가 있어요. 그래도 이들의 지식과 통찰력은 언제나 놀라움을 줍니다.",
 };
 
-const calculateMBTI = (answers) => {
+export const calculateMBTI = (answers) => {
   // 각 MBTI 유형에 대한 점수 초기화
   const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
@@ -40,6 +42,7 @@ const calculateMBTI = (answers) => {
     const [option1, option2] = answerObj.type.split("/");
 
     // 선택한 옵션이 질문의 options 배열에서 몇 번째에 위치하는지 확인
+    // const question = questions[index];
     const question = questions[index];
     const selectedIndex = question.options.indexOf(answerObj.answer);
 

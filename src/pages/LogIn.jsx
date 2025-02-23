@@ -1,17 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
-import { login } from "../api/auth";
-import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import useAuthStore from "../zustand/authStore";
+//login 이름이 겹쳐서 이름 바꿔줌
+import { login as loginApi } from "../api/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginTest } = useContext(AuthContext);
+  const { login } = useAuthStore((state) => state);
+
   const handleLogin = async (formData) => {
     try {
-      await login(formData);
+      const response = await loginApi(formData);
+      const { accessToken } = response;
+      login(accessToken);
+      //왜 로컬스토리지에 전체 상태가 저장이 되는 걸까... 왜 이 코드를 입력해야만하지?
+      localStorage.setItem("accessToken", accessToken);
+
       alert("로그인에 성공했습니다!");
-      loginTest();
       navigate("/");
     } catch (error) {
       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요!");
