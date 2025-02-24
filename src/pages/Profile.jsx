@@ -1,9 +1,21 @@
 import AuthForm from "../components/AuthForm";
 import { updateProfile, getUserProfile } from "../api/auth";
 import useAuthStore from "../zustand/authStore";
+import { updateTestResult } from "../api/testResults";
+import { useMutation } from "@tanstack/react-query";
 
 const Profile = () => {
   const { accessToken, user, setUser } = useAuthStore((state) => state);
+
+  //--------------디비를 수정하는 뮤테이트--------------//
+  const updateNicknameTestResultMutation = useMutation({
+    mutationFn: updateTestResult,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.MBTI],
+      });
+    },
+  });
 
   //프로필 닉네임 수정 로직
   const handleUpdateProfile = async (formData) => {
@@ -17,6 +29,13 @@ const Profile = () => {
         // console.log("updatedUser=>", updatedUser);
         //불러온 유저 정보를 setUser에 닉네임만 변경해주기
         await setUser({ ...user, nickname: updatedUser.nickname });
+
+        // console.log(formData);
+
+        updateNicknameTestResultMutation.mutate({
+          id: user.userId,
+          updateNickname: formData.nickname,
+        });
       } catch (error) {
         alert("프로필 정보 변경 실패");
       }

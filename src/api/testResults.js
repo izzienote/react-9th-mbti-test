@@ -34,10 +34,22 @@ export const deleteTestResult = async (id) => {
 export const updateTestResultVisibility = async ({ id, visibility }) => {
   try {
     const response = await jsonAPI.patch(`/testResults/${id}`, { visibility: !visibility })
-    // console.log(id);
-    // console.log(visibility);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
+
+//닉네임 업데이트시, 반영하는 1개 더 필요!
+export const updateTestResult = async ({ id, updateNickname }) => {
+  console.log(updateNickname);
+  console.log(id);
+  try {
+    const response = await jsonAPI.patch(`/testResults/${id}`, { nickname: updateNickname })
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

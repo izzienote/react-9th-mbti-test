@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import useAuthStore from "../zustand/authStore";
 //login 이름이 겹쳐서 이름 바꿔줌
-import { login as loginApi } from "../api/auth";
+import { login } from "../api/auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,9 +11,7 @@ const Login = () => {
   //로그인 핸들러
   const handleLogin = async (formData) => {
     try {
-      const { accessToken, userId, nickname, avatar } = await loginApi(
-        formData
-      );
+      const { accessToken, userId, nickname, avatar } = await login(formData);
       setUser({ userId, nickname, avatar });
       setToken(accessToken);
 
