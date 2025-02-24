@@ -34,8 +34,8 @@ export const deleteTestResult = async (id) => {
 export const updateTestResultVisibility = async ({ id, visibility }) => {
   try {
     const response = await jsonAPI.patch(`/testResults/${id}`, { visibility: !visibility })
-    console.log(id);
-    console.log(visibility);
+    // console.log(id);
+    // console.log(visibility);
     return response.data;
   } catch (error) {
     console.error(error);

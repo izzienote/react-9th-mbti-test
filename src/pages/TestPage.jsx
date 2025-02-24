@@ -7,6 +7,7 @@ import CommonBtn from "../components/CommonBtn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuthStore from "../zustand/authStore";
 
+//한국 시간으로 변환하기!
 const offset = 1000 * 60 * 60 * 9;
 const koreaNow = new Date(new Date().getTime() + offset);
 
@@ -54,7 +55,7 @@ const TestPage = () => {
   };
 
   const handleNavigateToResults = () => {
-    console.log("Navigating to /test-result-page");
+    // console.log("Navigating to /test-result-page");
     navigate("/test-result-page");
   };
 

@@ -4,10 +4,8 @@ import {
   updateTestResultVisibility,
   deleteTestResult,
 } from "../api/testResults";
-import CommonBtn from "../components/CommonBtn";
 import { QUERY_KEY } from "../constants";
 import useAuthStore from "../zustand/authStore";
-import { jsonAPI } from "../api/authInstance";
 
 const TestResultPage = () => {
   //user 정보 가져오기
@@ -33,6 +31,7 @@ const TestResultPage = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.MBTI],
       });
+      alert("전환되었습니다!");
     },
   });
 
@@ -43,6 +42,7 @@ const TestResultPage = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.MBTI],
       });
+      alert("삭제되었습니다!");
     },
   });
 
