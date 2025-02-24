@@ -10,8 +10,8 @@ export const login = async (userData) => {
   return response.data;
 };
 
-//프로필 닉네임 수정은 오케이 but 변경된 유저의 정보로 갈아끼우는 작업 필요
-//그래서 getUserProfile을 쓰는 듯
+//프로필 닉네임 수정은 및 유저 정보 교체 작업
+//vercel branch 변경
 export const getUserProfile = async (accessToken) => {
   const response = await authAPI.get("/user", {
     headers: {
