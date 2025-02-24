@@ -16,6 +16,9 @@ const Header = () => {
           <li>
             <Link to="/">홈</Link>
           </li>
+          <li className="text-blue-600">
+            {user ? user.nickname : "게스트"}님 환영합니다!
+          </li>
           {/* 로그인 상태일 경우, 버튼 안보이게 수정 필요 */}
           {user ? (
             <>

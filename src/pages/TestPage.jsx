@@ -3,13 +3,8 @@ import { useState } from "react";
 import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import { createTestResult } from "../api/testResults";
 import { useNavigate } from "react-router-dom";
-import CommonBtn from "../components/CommonBtn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuthStore from "../zustand/authStore";
-
-//한국 시간으로 변환하기!
-const offset = 1000 * 60 * 60 * 9;
-const koreaNow = new Date(new Date().getTime() + offset);
 
 const TestPage = () => {
   const navigate = useNavigate();
@@ -32,30 +27,20 @@ const TestPage = () => {
   //테스트 폼 핸들러
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
-    setResult(mbtiResult); //결과화면 나오는 로직(브라우저 에서만)
-    // console.log("결과 타입값만 반환 ==>", mbtiResult);
+    setResult(mbtiResult);
 
     //뮤테이트로 값 json 서버에 값 추가
     addTestResultMutation.mutate({
       nickname: user.nickname,
       result: mbtiDescriptions[mbtiResult],
       visibility: true,
-      // date: new Date(),
-      date: koreaNow,
+      date: new Date(),
+      // date: koreaCurrentTime,
       writerId: user.userId,
     });
-    //콘솔로그로 확인
-    // console.log({
-    //   nickname: user.nickname,
-    //   result: mbtiDescriptions[mbtiResult],
-    //   visibility: true,
-    //   date: new Date(),
-    //   writerId: user.userId,
-    // });
   };
 
   const handleNavigateToResults = () => {
-    // console.log("Navigating to /test-result-page");
     navigate("/test-result-page");
   };
 

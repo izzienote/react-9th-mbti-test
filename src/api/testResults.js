@@ -30,7 +30,7 @@ export const deleteTestResult = async (id) => {
     console.error(error);
   }
 };
-//테스트 비공개, 공개 전환 ----- 작동 안됨 ㅠㅠㅠ
+//테스트 비공개, 공개 전환
 export const updateTestResultVisibility = async ({ id, visibility }) => {
   try {
     const response = await jsonAPI.patch(`/testResults/${id}`, { visibility: !visibility })

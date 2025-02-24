@@ -4,7 +4,13 @@ import {
   updateTestResultVisibility,
   deleteTestResult,
 } from "../api/testResults";
-import { QUERY_KEY } from "../constants";
+import {
+  QUERY_KEY,
+  DATE_SLICE_START,
+  DATE_SLICE_END,
+  TIME_SLICE_START,
+  TIME_SLICE_END,
+} from "../constants";
 import useAuthStore from "../zustand/authStore";
 
 const TestResultPage = () => {
@@ -42,7 +48,6 @@ const TestResultPage = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.MBTI],
       });
-      alert("삭제되었습니다!");
     },
   });
 
@@ -53,6 +58,12 @@ const TestResultPage = () => {
   if (isError) {
     return <div>데이터 조회 중 오류가 발생했습니다</div>;
   }
+
+  const handleDeleteResult = (id) => {
+    const result = window.confirm("정말 삭제하시겠습니까?");
+    if (!result) return;
+    deleteTestResultMutation.mutate(id);
+  };
 
   //visiblity 속성이 true 인 것만, 보이게 필터링!
   //만약 writerId === user.userId가 같을때는 전부 다 보여주도록 하기!
@@ -72,9 +83,13 @@ const TestResultPage = () => {
               >
                 <div className="flex justify-between items-center mb-5">
                   <span className="text-yellow-600">{data.nickname}</span>
-                  {/* 날짜랑 시간 보여주기 */}
-                  <span>테스트 진행 날짜 : {data.date.slice(0, 10)}</span>
-                  <span>{data.date.slice(11, 19)}</span>
+                  <span>
+                    테스트 진행 날짜 :{" "}
+                    {data.date.slice((DATE_SLICE_START, DATE_SLICE_END))}
+                  </span>
+                  <span>
+                    {data.date.slice(TIME_SLICE_START, TIME_SLICE_END)}
+                  </span>
                 </div>
                 <div>{data.result}</div>
                 <div className="flex justify-end items-center gap-3">
@@ -92,7 +107,7 @@ const TestResultPage = () => {
                         {data.visibility ? "비공개로 전환" : "공개로 전환"}
                       </button>
                       <button
-                        onClick={() => deleteTestResultMutation.mutate(data.id)}
+                        onClick={() => handleDeleteResult(data.id)}
                         className=" text-white px-2 py-1 bg-red-800 hover:bg-red-500 rounded-lg transition-colors "
                       >
                         삭제

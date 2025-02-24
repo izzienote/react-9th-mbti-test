@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
-import CommonBtn from "../components/CommonBtn";
 import { register } from "../api/auth";
 
 const Signup = () => {
