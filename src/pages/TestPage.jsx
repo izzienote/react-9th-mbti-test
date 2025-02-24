@@ -7,6 +7,9 @@ import CommonBtn from "../components/CommonBtn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuthStore from "../zustand/authStore";
 
+const offset = 1000 * 60 * 60 * 9;
+const koreaNow = new Date(new Date().getTime() + offset);
+
 const TestPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
@@ -28,26 +31,26 @@ const TestPage = () => {
   //테스트 폼 핸들러
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
-    /* Test 결과는 mbtiResult 라는 변수에 저장이 됩니다. 이 데이터를 어떻게 API 를 이용해 처리 할 지 고민해주세요. */
     setResult(mbtiResult); //결과화면 나오는 로직(브라우저 에서만)
-    console.log("결과 타입값만 반환 ==>", mbtiResult);
+    // console.log("결과 타입값만 반환 ==>", mbtiResult);
 
     //뮤테이트로 값 json 서버에 값 추가
     addTestResultMutation.mutate({
       nickname: user.nickname,
       result: mbtiDescriptions[mbtiResult],
       visibility: true,
-      date: new Date(),
+      // date: new Date(),
+      date: koreaNow,
       writerId: user.userId,
     });
     //콘솔로그로 확인
-    console.log({
-      nickname: user.nickname,
-      result: mbtiDescriptions[mbtiResult],
-      visibility: true,
-      date: new Date(),
-      writerId: user.userId,
-    });
+    // console.log({
+    //   nickname: user.nickname,
+    //   result: mbtiDescriptions[mbtiResult],
+    //   visibility: true,
+    //   date: new Date(),
+    //   writerId: user.userId,
+    // });
   };
 
   const handleNavigateToResults = () => {
@@ -77,7 +80,7 @@ const TestPage = () => {
             <button
               type="button"
               onClick={handleNavigateToResults}
-              className="w-full bg-primary-color text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 hover:text-[#FF5A5F]"
+              className="w-full bg-red-400 text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 hover:text-[#FF5A5F] hover:bg-red-100"
             >
               결과 페이지로 이동하기
             </button>

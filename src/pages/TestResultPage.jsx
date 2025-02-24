@@ -26,7 +26,7 @@ const TestResultPage = () => {
     retry: 1,
   });
 
-  //뮤테이션으로 비공개 공개 전환하기 ---- 이 부분이 지금 문제
+  //뮤테이션으로 비공개 공개 전환하기
   const updateVisibilityMutation = useMutation({
     mutationFn: updateTestResultVisibility,
     onSuccess: () => {
@@ -54,47 +54,56 @@ const TestResultPage = () => {
     return <div>데이터 조회 중 오류가 발생했습니다</div>;
   }
 
+  //visiblity 속성이 true 인 것만, 보이게 필터링!
+  //만약 writerId === user.userId가 같을때는 전부 다 보여주도록 하기!
+
   return (
     <div>
       <h1 className="text-center text-3xl font-bold text-primary-color mb-10">
         MBTI 테스트 결과 페이지
       </h1>
       <section className="flex flex-col gap-y-5">
-        {testResults.map((data) => (
-          <section
-            className="rounded-xl max-w-2xl  bg-gray-900 px-10 py-3 text-white "
-            key={data.id}
-          >
-            <div className="flex justify-between items-center mb-5">
-              <span className="text-yellow-600">{data.nickname}</span>
-              <span>작성 시간 : {data.date}</span>
-            </div>
-            <div>{data.result}</div>
-            <div>
-              {user.userId === data.writerId && (
-                <>
-                  <button
-                    onClick={() =>
-                      updateVisibilityMutation.mutate({
-                        id: data.id,
-                        visibility: data.visibility,
-                      })
-                    }
-                    className=" text-white px-2 py-1 bg-blue-600 hover:bg-blue-800 rounded-lg transition-colors "
-                  >
-                    {data.visibility ? "비공개로 전환" : "공개로 전환"}
-                  </button>
-                  <button
-                    onClick={() => deleteTestResultMutation.mutate(data.id)}
-                    className=" text-white px-2 py-1 bg-red-800 hover:bg-red-500 rounded-lg transition-colors "
-                  >
-                    삭제
-                  </button>
-                </>
-              )}
-            </div>
-          </section>
-        ))}
+        {testResults.map((data) => {
+          if (user.userId === data.writerId || data.visibility) {
+            return (
+              <section
+                className="rounded-xl max-w-2xl  bg-gray-900 px-10 py-3 text-white "
+                key={data.id}
+              >
+                <div className="flex justify-between items-center mb-5">
+                  <span className="text-yellow-600">{data.nickname}</span>
+                  {/* 날짜랑 시간 보여주기 */}
+                  <span>테스트 진행 날짜 : {data.date.slice(0, 10)}</span>
+                  <span>{data.date.slice(11, 19)}</span>
+                </div>
+                <div>{data.result}</div>
+                <div className="flex justify-end items-center gap-3">
+                  {user.userId === data.writerId && (
+                    <>
+                      <button
+                        onClick={() =>
+                          updateVisibilityMutation.mutate({
+                            id: data.id,
+                            visibility: data.visibility,
+                          })
+                        }
+                        className=" text-white px-2 py-1 bg-blue-600 hover:bg-blue-800 rounded-lg transition-colors"
+                      >
+                        {data.visibility ? "비공개로 전환" : "공개로 전환"}
+                      </button>
+                      <button
+                        onClick={() => deleteTestResultMutation.mutate(data.id)}
+                        className=" text-white px-2 py-1 bg-red-800 hover:bg-red-500 rounded-lg transition-colors "
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
+                </div>
+              </section>
+            );
+          }
+        })}
       </section>
     </div>
   );
