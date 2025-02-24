@@ -6,13 +6,13 @@ import { register } from "../api/auth";
 const Signup = () => {
   const navigate = useNavigate();
 
+  //회원가입 핸들러
   const handleSignup = async (formData) => {
     try {
       await register(formData);
       alert("회원가입에 성공했습니다!");
       navigate("/log-in");
     } catch (error) {
-      // alert("회원가입에 실패했습니다. 다시 시도해주세요");
       alert("이미 존재하는 ID입니다. 다른 ID를 입력해주세요");
     }
   };

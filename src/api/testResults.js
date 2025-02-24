@@ -1,24 +1,43 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/testResults';
-
+import { jsonAPI } from './authInstance';
+//테스트 결과 가져오기
 export const getTestResults = async () => {
-  const response = await axios.get(API_URL);
-  return response.data;
-};
 
+  try {
+    const response = await jsonAPI.get('/testResults')
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+//테스트 결과 추가
 export const createTestResult = async (resultData) => {
-  const response = await axios.post(API_URL, resultData);
-  return response.data;
+  try {
+    const response = await jsonAPI.post('/testResults', resultData)
+    console.log(response.data);
+    return response.data;
+
+  } catch (error) {
+    console.error(error);
+  }
 
 };
-
+//테스트 결과 삭제
 export const deleteTestResult = async (id) => {
-  const response = await axios.delete(`${API_URL}/${id}`);
-  return response.data;
+  try {
+    const response = await jsonAPI.delete(`/testResults/${id}`)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
-
-export const updateTestResultVisibility = async (id, visibility) => {
-  const response = await axios.patch(`${API_URL}/${id}`, { visibility });
-  return response.data;
+//테스트 비공개, 공개 전환 ----- 작동 안됨 ㅠㅠㅠ
+export const updateTestResultVisibility = async ({ id, visibility }) => {
+  try {
+    const response = await jsonAPI.patch(`/testResults/${id}`, { visibility: !visibility })
+    console.log(id);
+    console.log(visibility);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

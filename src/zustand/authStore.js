@@ -11,7 +11,7 @@ const useAuthStore = create(persist(immer((set) => ({
   //로그아웃 시, 로컬스토리지에 있는 user 삭제
   logout: () => {
     set({ user: null, accessToken: null })
-    localStorage.removeItem("user")
+    // localStorage.removeItem("user")
   }
   ,
 })), {

@@ -6,6 +6,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
+    useAuthStore.persist.clearStorage("user");
   };
 
   return (

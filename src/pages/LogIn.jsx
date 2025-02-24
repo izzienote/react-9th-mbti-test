@@ -8,6 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { setUser, setToken } = useAuthStore((state) => state);
 
+  //로그인 핸들러
   const handleLogin = async (formData) => {
     try {
       const { accessToken, userId, nickname, avatar } = await loginApi(
@@ -22,6 +23,7 @@ const Login = () => {
       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요!");
     }
   };
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
       <div>

@@ -4,6 +4,7 @@ import useAuthStore from "../zustand/authStore";
 
 const Home = () => {
   const { user } = useAuthStore((state) => state);
+
   return (
     <div className="flex flex-col items-center justify-start h-screen py-10">
       <h1 className="text-5xl font-bold text-primary-color mb-6">

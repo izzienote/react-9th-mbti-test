@@ -4,8 +4,8 @@ import useAuthStore from "../zustand/authStore";
 
 const Profile = () => {
   const { accessToken, user, setUser } = useAuthStore((state) => state);
-  console.log(accessToken);
 
+  //프로필 닉네임 수정 로직
   const handleUpdateProfile = async (formData) => {
     if (accessToken) {
       try {
@@ -14,7 +14,7 @@ const Profile = () => {
         alert("프로필 정보 변경 성공");
         //변경 후, 다시 유저 정보를 불러오기
         const updatedUser = await getUserProfile(accessToken);
-        console.log("updatedUser=>", updatedUser);
+        // console.log("updatedUser=>", updatedUser);
         //불러온 유저 정보를 setUser에 닉네임만 변경해주기
         await setUser({ ...user, nickname: updatedUser.nickname });
       } catch (error) {
@@ -29,7 +29,7 @@ const Profile = () => {
         <h1 className="text-3xl font-bold text-primary-color mb-6 flex justify-center items-center">
           프로필
         </h1>
-        <p className="text-center">수정하고 싶은 닉네임을 입력해주세요!</p>
+        <p className="text-center">변경할 닉네임을 입력해주세요!</p>
         <AuthForm mode="profile" onSubmit={handleUpdateProfile} />
       </div>
     </div>
