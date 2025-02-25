@@ -1,5 +1,7 @@
 # 📁 MBTI 테스트
 
+![mbti](https://github.com/user-attachments/assets/71b261d4-6a19-4402-a339-3ebeba40f430)
+
 # 🌑 구현 기능
 
 ✅ zustand를 활용한 user 상태 관리
