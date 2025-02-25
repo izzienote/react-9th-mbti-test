@@ -12,6 +12,7 @@ import {
   TIME_SLICE_END,
 } from "../constants";
 import useAuthStore from "../zustand/authStore";
+import { toast } from "react-toastify";
 
 const TestResultPage = () => {
   //user 정보 가져오기
@@ -28,6 +29,7 @@ const TestResultPage = () => {
     queryKey: [QUERY_KEY.MBTI],
     queryFn: getTestResults,
     retry: 1,
+    // staleTime: 0,
   });
 
   //뮤테이션으로 비공개 공개 전환하기
@@ -37,7 +39,7 @@ const TestResultPage = () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.MBTI],
       });
-      alert("전환되었습니다!");
+      toast.success("전환되었습니다!");
     },
   });
 

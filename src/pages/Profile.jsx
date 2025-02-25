@@ -2,18 +2,23 @@ import AuthForm from "../components/AuthForm";
 import { updateProfile, getUserProfile } from "../api/auth";
 import useAuthStore from "../zustand/authStore";
 import { updateTestResult } from "../api/testResults";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const { accessToken, user, setUser } = useAuthStore((state) => state);
+  const queryClient = useQueryClient();
 
   //--------------디비를 수정하는 뮤테이트--------------//
   const updateNicknameTestResultMutation = useMutation({
     mutationFn: updateTestResult,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.MBTI],
-      });
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries({
+    //     queryKey: [QUERY_KEY.MBTI],
+    //   });
+    // },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["testResults"]);
     },
   });
 
@@ -23,7 +28,7 @@ const Profile = () => {
       try {
         //폼데이터와, accssToken 전달
         await updateProfile({ ...formData, accessToken });
-        alert("프로필 정보 변경 성공");
+        toast.success("프로필 정보 변경 성공");
         //변경 후, 다시 유저 정보를 불러오기
         const updatedUser = await getUserProfile(accessToken);
         // console.log("updatedUser=>", updatedUser);
@@ -37,7 +42,7 @@ const Profile = () => {
           updateNickname: formData.nickname,
         });
       } catch (error) {
-        alert("프로필 정보 변경 실패");
+        toast.error("프로필 정보 변경 실패");
       }
     }
   };

@@ -3,6 +3,7 @@ import AuthForm from "../components/AuthForm";
 import useAuthStore from "../zustand/authStore";
 //login 이름이 겹쳐서 이름 바꿔줌
 import { login } from "../api/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,10 +16,10 @@ const Login = () => {
       setUser({ userId, nickname, avatar });
       setToken(accessToken);
 
-      alert("로그인에 성공했습니다!");
+      toast.success("로그인에 성공했습니다!");
       navigate("/");
     } catch (error) {
-      alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요!");
+      toast.error("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요!");
     }
   };
 

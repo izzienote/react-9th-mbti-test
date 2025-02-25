@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import { register } from "../api/auth";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -9,10 +10,10 @@ const Signup = () => {
   const handleSignup = async (formData) => {
     try {
       await register(formData);
-      alert("회원가입에 성공했습니다!");
+      toast.success("회원가입에 성공했습니다!");
       navigate("/log-in");
     } catch (error) {
-      alert("이미 존재하는 ID입니다. 다른 ID를 입력해주세요");
+      toast.error("이미 존재하는 ID입니다. 다른 ID를 입력해주세요");
     }
   };
   return (
