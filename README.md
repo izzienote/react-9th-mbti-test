@@ -1,22 +1,22 @@
 # 📁 MBTI 테스트
 
-## 🌑 구현 기능
+# 🌑 구현 기능
 
--
+✅ zustand를 활용한 user 상태 관리
+
+✅ tanStack query를 활용하여 mbti 테스트 CRUD 관리
+
+- Create: 새로운 MBTI 테스트 결과 저장
+- Read: 사용자들이 작성한 모든 테스트 결과 보기
+- Update: 내가 테스트한 결과의 비공개/ 공개 전환 여부 설정
+- Delete: 나의 결과 삭제 기능
 
 <br>
 
-### 깃헙 커밋 규칙
+# 🚀 트러블슈팅
 
-| 작업 타입   | 작업내용                       |
-| ----------- | ------------------------------ |
-| ✨ update   | 해당 파일에 새로운 기능이 생김 |
-| 🎉 add      | 없던 파일을 생성함, 초기 세팅  |
-| ♻️ refactor | 코드 리팩토링                  |
-| 🩹 fix      | 코드 수정                      |
-| 🚚 move     | 파일 옮김/정리                 |
-| 🔥 del      | 기능/파일을 삭제               |
-| 💄 style    | css                            |
-| 🌱 readme   | readme                         |
+[MBTI] [비공개/공개 전환 시, 전부 다 사라진다?](https://izzie-note.tistory.com/148)
+
+[MBTI] [alert과 작별! toastify 라이브러리 적용하기](https://izzie-note.tistory.com/150)
 
 <br>

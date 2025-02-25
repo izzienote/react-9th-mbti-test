@@ -35,7 +35,6 @@ const TestPage = () => {
       result: mbtiDescriptions[mbtiResult],
       visibility: true,
       date: new Date(),
-      // date: koreaCurrentTime,
       writerId: user.userId,
     });
   };

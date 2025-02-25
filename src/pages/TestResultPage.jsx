@@ -1,6 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getTestResults,
   updateTestResultVisibility,
   deleteTestResult,
 } from "../api/testResults";
@@ -13,6 +12,7 @@ import {
 } from "../constants";
 import useAuthStore from "../zustand/authStore";
 import { toast } from "react-toastify";
+import { useTestResults } from "../hooks/queries";
 
 const TestResultPage = () => {
   //user 정보 가져오기
@@ -21,16 +21,7 @@ const TestResultPage = () => {
   const queryClient = useQueryClient();
 
   //탠스택쿼리 사용
-  const {
-    data: testResults,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: [QUERY_KEY.MBTI],
-    queryFn: getTestResults,
-    retry: 1,
-    // staleTime: 0,
-  });
+  const { data: testResults, isPending, isError } = useTestResults();
 
   //뮤테이션으로 비공개 공개 전환하기
   const updateVisibilityMutation = useMutation({
