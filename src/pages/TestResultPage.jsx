@@ -62,7 +62,7 @@ const TestResultPage = () => {
   //만약 writerId === user.userId가 같을때는 전부 다 보여주도록 하기!
 
   return (
-    <div>
+    <div className="h-full p-10">
       <h1 className="text-center text-3xl font-bold text-primary-color mb-10">
         MBTI 테스트 결과 페이지
       </h1>

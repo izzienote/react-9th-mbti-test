@@ -6,7 +6,7 @@ const Home = () => {
   const { user } = useAuthStore((state) => state);
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen py-10">
+    <div className="flex flex-col items-center justify-start h-full py-10">
       <h1 className="text-5xl font-bold text-primary-color mb-6">
         무료 성격 테스트
       </h1>

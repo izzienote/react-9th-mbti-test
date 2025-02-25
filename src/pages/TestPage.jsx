@@ -44,18 +44,16 @@ const TestPage = () => {
   };
 
   return (
-    <div className="py-10 w-full flex flex-col items-center justify-center bg-white h-screen overflow-y-auto">
-      <div className="bg-white rounded-lg p-8 max-w-lg w-full h-full overflow-y-auto">
+    <div className="py-10 w-full flex flex-col items-center justify-center bg-white h-full">
+      <div className="bg-white rounded-lg p-8 max-w-3xl w-full h-full overflow-y-auto">
         {!result ? (
           <>
-            <h1 className="text-3xl font-bold text-primary-color mb-6">
-              MBTI 테스트
-            </h1>
+            <h1 className="text-3xl font-bold text-center mb-6">MBTI 테스트</h1>
             <TestForm onSubmit={handleTestSubmit} />
           </>
         ) : (
           <>
-            <h1 className="text-3xl font-bold text-primary-color mb-6">
+            <h1 className="text-3xl font-bold mb-6 text-center">
               테스트 결과: {result}
             </h1>
             <p className="text-lg text-gray-700 mb-6">
